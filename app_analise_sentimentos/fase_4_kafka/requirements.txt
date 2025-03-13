@@ -1,0 +1,11 @@
+pillow
+openai==0.28
+fastapi
+uvicorn
+requests
+streamlit
+pydantic
+pymongo
+confluent_kafka
+kafka-python
+python-dotenv

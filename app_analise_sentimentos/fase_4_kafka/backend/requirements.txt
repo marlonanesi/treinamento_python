@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+openai==0.28
+pydantic
+pymongo
+confluent_kafka
+kafka-python
+python-dotenv
