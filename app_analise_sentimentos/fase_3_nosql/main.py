@@ -4,6 +4,12 @@ import os
 import sys
 
 def start_streamlit():
+    """
+    Ponto de entrada principal do script
+    Adiciona diretórios ao PYTHONPATH, inicia o Streamlit e executa o servidor Uvicorn.
+    Orquestrador para facilitar a subida da aplicação localmente/via terminal, para desenvolvimento e debug.
+    python main.py // da raiz dessa pasta
+    """
     # Definir a variável de ambiente para o host do FastAPI
     os.environ['FASTAPI_HOST'] = 'localhost'
     

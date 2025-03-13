@@ -11,6 +11,12 @@ def start_streamlit():
     subprocess.Popen(["streamlit", "run", "frontend/streamlit.py"])
 
 if __name__ == "__main__":
+    """
+    Ponto de entrada principal do script
+    Adiciona diretórios ao PYTHONPATH, inicia o Streamlit e executa o servidor Uvicorn.
+    Orquestrador para facilitar a subida da aplicação localmente/via terminal, para desenvolvimento e debug.
+    python main.py // da raiz dessa pasta
+    """
     # Adicionar o diretório raiz do projeto ao PYTHONPATH
     sys.path.append(os.getcwd())
     sys.path.append(os.path.join(os.getcwd(), 'backend'))
