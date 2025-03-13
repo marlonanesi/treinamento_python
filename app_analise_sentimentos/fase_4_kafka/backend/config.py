@@ -12,4 +12,4 @@ def str_to_bool(value):
 
 API_KEY = os.getenv('API_KEY')
 DATABASE_NAME = 'local'
-MOCK_OPENAPI_SERVICE = str_to_bool(os.getenv('MOCK_OPENAPI_SERVICE', 'True'))
+MOCK_OPENAPI_SERVICE = str_to_bool(os.getenv('MOCK_OPENAPI_SERVICE', 'False'))
