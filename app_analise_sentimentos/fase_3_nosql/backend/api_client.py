@@ -35,7 +35,7 @@ def get_feedback_from_openai(comentario, avaliacao):
         feedback_json = json.loads(feedback_str)
     else:
         feedback_json = {
-            "descricao": "Não foi possivel avaliar, esse é um resultado padrão do sistema!",
+            "descricao": "Não foi possivel avaliar, esse é um resultado padrão do sistema! Ative o serviço de IA para uma analise real.",
             "status": "reprovado"
         }
 

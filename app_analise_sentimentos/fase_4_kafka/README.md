@@ -1,10 +1,17 @@
 # Análise de Sentimento de Comentários
 
-Este projeto é uma aplicação em Python que utiliza a API da OpenAI configurada para analisar o sentimento de comentários escritos. A interface do usuário é construída usando Streamlit. O projeto é dividido em várias fases onde respectivamente:
-1 - inicia com o app python com a funcionalidade principal rodando via console (streamlit como front e back com FastAPI)
-2 - uso de conteinerização em Docker na aplicação (introducao devops) também orquestração com Docker Compose
-3 - uso de banco de dados NoSQL (MongoDB) para armazenamento dos comentários e respostas
-4 - uso de Kafka como fila, nessa fase o app irá gravar o comentário num tópico/fila Kafka, e um consumidor de forma asyncrona irá ler e processar (resiliencia a falhas)
+Este projeto é uma aplicação em Python que utiliza a API da OpenAI para analisar o sentimento de comentários escritos. A interface do usuário é desenvolvida usando Streamlit, enquanto o backend utiliza FastAPI. O projeto evolui em diferentes fases:
+
+1. **Execução Inicial**: A aplicação roda localmente com Streamlit como frontend e FastAPI como backend.
+2. **Conteinerização com Docker**: Implementação de Docker para conteinerizar a aplicação, incluindo orquestração com Docker Compose.
+3. **Banco de Dados NoSQL**: Integração com MongoDB para armazenamento dos comentários e suas respostas.
+4. **Processamento Assíncrono com Kafka**: Os comentários são gravados em um tópico Kafka, permitindo que um consumidor processador os leia e analise de forma assíncrona, garantindo resiliência a falhas.
+
+## Estrutura do Projeto
+
+- **`main.py`**: Arquivo utilizado apenas para inicialização local em modo de desenvolvimento. Ele é um facilitador para subir frontend e backend simultaneamente, mas ambos podem ser iniciados separadamente.
+- **`backend/`**: Contém o serviço FastAPI responsável pelo processamento dos comentários.
+- **`frontend/`**: Contém a interface Streamlit para interação com o usuário.
 
 ## Requisitos
 
@@ -32,22 +39,39 @@ Para garantir que todas as dependências do projeto sejam instaladas corretament
 
 1. No terminal, ative o ambiente virtual:
     ```sh
-    .venv\Scripts\activate
+    .venv\Scripts\activate  # Windows
+    source .venv/bin/activate  # Linux/Mac
     ```
 
 ### Instalar Dependências
 
-1. Com o ambiente virtual ativado, instale as dependências listadas no arquivo [requirements.txt](http://_vscodecontentref_/1):
+1. Com o ambiente virtual ativado, instale as dependências listadas no arquivo `requirements.txt`:
     ```sh
     pip install -r requirements.txt
     ```
 
 ### Desativar o Ambiente Virtual
 
-1. Quando terminar de trabalhar no projeto, desative o ambiente virtual com o comando:
+1. Quando terminar de trabalhar no projeto, desative o ambiente virtual:
     ```sh
     deactivate
     ```
+
+## Configuração do Serviço da OpenAI
+
+Para utilizar a API da OpenAI, crie um arquivo `.env` na raiz do projeto e defina a variável `API_KEY` com o token da OpenAI:
+
+```sh
+API_KEY=seu_token_aqui
+```
+
+Caso não deseje utilizar a API da OpenAI, ative o mock da API definindo a variável `MOCK_OPENAPI_SERVICE` como `True` no arquivo `backend/config.py`:
+
+```python
+MOCK_OPENAPI_SERVICE = True
+```
+
+Isso permitirá que a aplicação funcione sem a necessidade de uma chave da OpenAI.
 
 ## Executar a Aplicação
 
@@ -55,7 +79,7 @@ Para garantir que todas as dependências do projeto sejam instaladas corretament
 
 1. Com o ambiente virtual ativado, execute a aplicação Streamlit:
     ```sh
-    streamlit run app.py
+    streamlit run frontend/app.py
     ```
 
 2. Acesse a aplicação no navegador através do endereço:
@@ -67,7 +91,7 @@ Para garantir que todas as dependências do projeto sejam instaladas corretament
 
 1. Com o ambiente virtual ativado, execute a aplicação FastAPI:
     ```sh
-    uvicorn main:app --host 0.0.0.0 --port 8000
+    uvicorn backend.app:app --host 0.0.0.0 --port 8000
     ```
 
 2. Acesse a documentação da API no navegador através do endereço:
@@ -75,20 +99,38 @@ Para garantir que todas as dependências do projeto sejam instaladas corretament
     http://localhost:8000/docs
     ```
 
+### Execução Local com Dependências Isoladas
+
+Caso você já tenha subido as dependências com Docker Compose, pode listar os containers e iniciar aqueles que estiverem desativados manualmente:
+
+```sh
+docker ps -a  # Verifica containers desativados
+docker start <nome_do_container>
+```
+
+Se estiver utilizando a extensão do Docker no VS Code, é possível iniciar as dependências isoladas diretamente clicando no botão de "play".
+
+**Ordem de Inicialização Recomendada:**
+1. **Zookeeper** deve ser iniciado antes do Kafka.
+2. **Kafka** precisa estar rodando antes do Kowl.
+3. **O consumer** deve ser iniciado somente após o Kafka estar operacional.
+
+Isso garante que todos os serviços estejam disponíveis no momento correto, evitando falhas de conexão entre os componentes.
+
 ## Conteinerização com Docker
 
 Para conteinerizar a aplicação, siga os passos abaixo:
 
-1. Crie a imagem Docker:
+1. Crie as imagens Docker: 
     ```sh
-    docker build -t app-streamlit .   // (dentro da pasta frontend)
-    docker build -t app-fastapi .     // (dentro da pasta backend)
+    docker build -t app-streamlit frontend/  # Cria a imagem do frontend
+    docker build -t app-fastapi backend/  # Cria a imagem do backend
     ```
 
-2. Execute o contêiner:
+2. Execute os contêineres:
     ```sh
-    docker run -p 8501:8501 app-streamlit // frontend
-    docker run -p 8000:8000 app-fastapi // backend
+    docker run -p 8501:8501 app-streamlit  # Frontend
+    docker run -p 8000:8000 app-fastapi  # Backend
     ```
 
 ## Orquestração com Docker Compose
@@ -109,4 +151,4 @@ Para orquestrar a aplicação usando Docker Compose, siga os passos abaixo:
     ```
     http://localhost:8000/docs
     ```
-.
+
