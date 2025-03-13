@@ -1,13 +1,20 @@
 # Análise de Sentimento de Comentários
 
-Este projeto é uma aplicação em Python que utiliza a API da OpenAI configurada para analisar o sentimento de comentários escritos. A interface do usuário é construída usando Streamlit. O projeto é dividido em várias fases onde respectivamente:
-1 - inicia com o app python com a funcionalidade principal rodando via console (streamlit como front e back com FastAPI)
-2 - uso de conteinerização em Docker na aplicação (introducao devops) também orquestração com Docker Compose
-3 - uso de banco de dados NoSQL (MongoDB) para armazenamento dos comentários e respostas
-4 - uso de Kafka como fila, nessa fase o app irá gravar o comentário num tópico/fila Kafka, e um consumidor de forma asyncrona irá ler e processar (resiliencia a falhas)
+Este projeto é uma aplicação em Python que utiliza a API da OpenAI para analisar o sentimento de comentários escritos. A interface do usuário é desenvolvida usando Streamlit, enquanto o backend utiliza FastAPI. O projeto evolui em diferentes fases:
 
+1. **Execução Inicial**: A aplicação roda localmente com Streamlit como frontend e FastAPI como backend.
+2. **Conteinerização**: Implementação de Docker para conteinerizar a aplicação, incluindo orquestração com Docker Compose.
+3. **Banco de Dados NoSQL**: Integração com MongoDB para armazenamento dos comentários e suas respostas.
+4. **Processamento Assíncrono com Kafka**: Os comentários são gravados em um tópico Kafka, permitindo que um consumidor processador os leia e analise de forma assíncrona, garantindo resiliência a falhas.
+
+## Estrutura do Projeto
+
+- **`main.py`**: Arquivo utilizado apenas para inicialização local em modo de desenvolvimento. Ele é um facilitador para subir o frontend (Streamlit) e o backend (FastAPI) simultaneamente. No entanto, ambos podem ser iniciados separadamente sem impacto na funcionalidade.
+- **`backend/`**: Contém o serviço FastAPI responsável pelo processamento dos comentários.
+- **`frontend/`**: Contém a interface Streamlit para interação com o usuário.
 
 ## Requisitos
+
 - Python 3.11 ou superior
 - pip (gerenciador de pacotes do Python)
 
@@ -19,7 +26,7 @@ Para garantir que todas as dependências do projeto sejam instaladas corretament
 
 1. Navegue até o diretório do projeto:
     ```sh
-    cd c:/projetos/app
+    cd app_analise_sentimentos\fase_1_app
     ```
 
 2. Crie o ambiente virtual:
@@ -31,53 +38,53 @@ Para garantir que todas as dependências do projeto sejam instaladas corretament
 
 1. No terminal, ative o ambiente virtual:
     ```sh
-    .venv\Scripts\activate
+    .venv\Scripts\activate  # Windows
+    source .venv/bin/activate  # Linux/Mac
     ```
 
 ### Instalar Dependências
 
-1. Com o ambiente virtual ativado, instale as dependências listadas no arquivo [requirements.txt](http://_vscodecontentref_/1):
+1. Com o ambiente virtual ativado, instale as dependências listadas no arquivo `requirements.txt`:
     ```sh
     pip install -r requirements.txt
     ```
 
 ### Desativar o Ambiente Virtual
 
-1. Quando terminar de trabalhar no projeto, desative o ambiente virtual com o comando:
+1. Quando terminar de trabalhar no projeto, desative o ambiente virtual:
     ```sh
     deactivate
     ```
+## Configuração do Serviço da OpenAI
+
+Para utilizar a API da OpenAI, crie um arquivo `.env` na pasta /backend e defina a variável `API_KEY` com o token da OpenAI:
+
+```sh
+API_KEY=seu_token_aqui
+```
+
+Caso não deseje utilizar a API da OpenAI, ative o mock da API definindo a variável `MOCK_OPENAPI_SERVICE` como `True` no arquivo `backend/config.py`:
+
+```python
+MOCK_OPENAPI_SERVICE = True
+```
+
+Isso permitirá que a aplicação funcione sem a necessidade de uma chave da OpenAI.    
 
 ## Executar a Aplicação
 
 1. Com o ambiente virtual ativado, execute a aplicação:
-    ```
-    python main.py (inicializa o front e back)
+    ```sh
+    python main.py  # Inicializa frontend e backend simultaneamente, modo desenvolvimento
     ```
 
-2. Acesse a aplicação no navegador através do endereço:
+2. Ou execute frontend e backend separadamente:
+    ```sh
+    uvicorn backend.app:app --host 0.0.0.0 --port 8000  # Inicia apenas o backend
+    streamlit run frontend/app.py  # Inicia apenas o frontend
+    ```
+
+3. Acesse a aplicação no navegador através do endereço:
     ```
     http://localhost:8501
     ```
-
-## Conteinerização com Docker
-
-Para conteinerizar a aplicação, siga os passos abaixo:
-
-1. Crie a imagem Docker:
-    ```sh
-    docker build -t sentiment-analysis-app .
-    ```
-
-2. Execute o contêiner:
-    ```sh
-    docker run -p 8501:8501 sentiment-analysis-app
-    ```
-
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
-
-## Licença
-
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
