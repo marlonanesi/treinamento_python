@@ -22,36 +22,3 @@
 # - Use `while` para repetir até que o usuário deseje sair.
 
 # ✏️ Comece seu código abaixo:
-
-def analisar_texto(texto):
-    palavras = texto.split()
-    qtd_palavras = len(palavras)
-    qtd_caracteres = len(texto.replace(" ", ""))
-    palavra_mais_longa = max(palavras, key=len)
-
-    print(f"Quantidade de palavras: {qtd_palavras}")
-    print(f"Quantidade de caracteres: {qtd_caracteres}")
-    print(f"Palavra mais longa: {palavra_mais_longa}")
-
-while True:
-    texto = input("Digite um texto ou 'sair' para encerrar: ")
-    if texto.lower() == "sair":
-        break
-
-    analisar_texto(texto)
-    print()
-
-print("Programa encerrado.")
-
-# Agora, vamos analisar o código acima:
-# - A função `analisar_texto(texto)` recebe um texto como parâmetro.
-# - O texto é dividido em palavras usando o método `split()`.
-# - A quantidade de palavras é obtida com a função `len()`.
-# - A quantidade de caracteres é obtida removendo os espaços do texto e calculando o comprimento.
-# - A palavra mais longa é obtida com a função `max()` e a função `key=len`.
-# - O resultado é exibido na tela.
-# - O programa principal solicita um texto ao usuário.
-# - Se o texto for "sair", o programa é encerrado.
-# - Caso contrário, a função `analisar_texto(texto)` é chamada.
-# - O processo se repete até o usuário digitar "sair".
-# - O programa exibe "Programa encerrado" ao final.
