@@ -1,1 +1,0 @@
-Usando um gerenciador de contexto para abrir arquivos!
