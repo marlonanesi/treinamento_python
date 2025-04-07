@@ -1,4 +1,4 @@
-# 📌 Aula X: Debugando com PDB - O Depurador Nativo do Python
+# 📌 Aula: Debugando com PDB - O Depurador Nativo do Python
 
 ## 📝 Introdução
 
