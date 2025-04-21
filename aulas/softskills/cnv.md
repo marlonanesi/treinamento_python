@@ -42,34 +42,49 @@ Marshall percebeu que boa parte dos conflitos humanos surgem da forma como nos c
 
 ---
 
-## 🧱 Os 4 Pilares da CNV
+## 🧱 Os 4 Pilares da CNV (com exemplos práticos)
 
 ### 1. **Observação sem Julgamento**
-Descrever a situação de forma objetiva, sem interpretações pessoais.
+Descrever a situação de forma objetiva, sem interpretações pessoais ou críticas.
 
-**Exemplo:**
-> "Quando você não respondeu à minha mensagem ontem..."
+**Exemplo CNV:**
+> "Percebi que o documento ainda não foi atualizado desde ontem."
 
-❌ Em vez de:
-> "Você me ignorou de novo como sempre faz!"
+❌ **Exemplo não CNV:**
+> "Você é sempre desleixado com as atualizações!"
+
+---
 
 ### 2. **Sentimentos**
-Nomear como nos sentimos diante daquela observação.
+Identificar e comunicar claramente o que sentimos, sem acusar o outro.
 
-**Exemplo:**
-> "...me senti frustrado e um pouco triste."
+**Exemplo CNV:**
+> "Fiquei preocupado e um pouco frustrado."
+
+❌ **Exemplo não CNV:**
+> "Você me deixou com raiva porque não se importa."
+
+---
 
 ### 3. **Necessidades**
-Expressar a necessidade ou valor que está por trás do sentimento.
+Apontar a necessidade ou valor que está por trás do sentimento.
 
-**Exemplo:**
-> "...porque preciso de mais segurança nas nossas comunicações."
+**Exemplo CNV:**
+> "Porque preciso confiar que os prazos serão cumpridos."
+
+❌ **Exemplo não CNV:**
+> "Porque você nunca faz nada direito!"
+
+---
 
 ### 4. **Pedidos Concretos**
-Fazer um pedido claro, específico e viável.
+Fazer um pedido claro, específico e viável, sem exigir ou impor.
 
-**Exemplo:**
-> "Você pode me avisar quando não puder responder?"
+**Exemplo CNV:**
+> "Você pode revisar esse documento ainda hoje até o fim do expediente?"
+
+❌ **Exemplo não CNV:**
+> "Faça isso logo, não quero ter que cobrar de novo."
 
 ---
 
@@ -85,8 +100,22 @@ Fazer um pedido claro, específico e viável.
 
 ## 🧪 Prática Rápida
 
-Tente reescrever esta frase usando CNV:
+Tente reescrever estas frases usando CNV:
+
+**1.**
 > "Esse seu código está horrível, você sempre faz isso!"
+
+**2.**
+> "Você nunca escuta o que eu falo."
+
+**3.**
+> "Para de enrolar e faz logo sua parte!"
+
+Agora, aplique os 4 pilares:
+- **Observação**: descreva o fato.
+- **Sentimento**: diga como se sentiu.
+- **Necessidade**: qual valor ou necessidade está por trás?
+- **Pedido**: o que você gostaria que fosse feito?
 
 ---
 
