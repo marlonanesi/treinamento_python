@@ -22,7 +22,7 @@ def get_feedback_from_openai(comentario, avaliacao):
 
     if not MOCK_OPENAPI_SERVICE:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4.1-mini", # melhor custo beneficio
             messages=[
                 {"role": "system", "content": FEEDBACK_VALIDATION_PROMPT},
                 {"role": "user", "content": f"Comentário: {comentario}\nAvaliação: {avaliacao} estrelas"}

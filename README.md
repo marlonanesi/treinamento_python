@@ -1,4 +1,4 @@
-# 📘 Repositório do Treinamento de Python
+# 📘 Treinamento de Python
 
 Bem-vindo ao **Treinamento de Python**! 🚀
 

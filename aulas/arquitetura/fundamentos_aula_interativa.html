@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquitetura de Software</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            text-align: left;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            position: absolute;
+            z-index: 50;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-white font-inter">
+    <div class="max-w-5xl mx-auto p-6">
+        <h1 class="text-3xl font-bold text-orange-400 mb-4">🏗️ Arquitetura de Software na Prática</h1>
+        <p class="text-slate-300 mb-8">Explore fundamentos essenciais e veja exemplos aplicáveis com base em situações
+            reais. Clique para expandir os tópicos e mergulhar em insights práticos.</p>
+
+        <!-- Tópico 1 -->
+        <details class="mb-4 group bg-slate-800 p-4 rounded-xl hover:shadow-lg">
+            <summary class="cursor-pointer font-semibold text-lg text-orange-300 group-open:underline">🔧 Modularização
+                e Reutilização</summary>
+            <div class="mt-3 text-slate-200">
+                Dividir o sistema em partes bem definidas facilita evolução e manutenção. <br>
+                <strong>Exemplo:</strong> Um módulo de autenticação pode ser reaproveitado em diversos sistemas
+                internos.
+            </div>
+        </details>
+
+        <!-- Tópico 2 -->
+        <details class="mb-4 group bg-slate-800 p-4 rounded-xl hover:shadow-lg">
+            <summary class="cursor-pointer font-semibold text-lg text-orange-300 group-open:underline">🔗 Desacoplamento
+                e Independência</summary>
+            <div class="mt-3 text-slate-200">
+                Sistemas desacoplados permitem que você evolua partes sem afetar o todo. <br>
+                <strong>Insight:</strong> Evite dependência direta entre microserviços; use eventos ou interfaces.
+            </div>
+        </details>
+
+        <!-- Tópico 3 -->
+        <details class="mb-4 group bg-slate-800 p-4 rounded-xl hover:shadow-lg">
+            <summary class="cursor-pointer font-semibold text-lg text-orange-300 group-open:underline">🧠 Discussões
+                arquiteturais que geram valor</summary>
+            <div class="mt-3 text-slate-200">
+                Ao iniciar um projeto, leve perguntas como:<br>
+                <ul class="list-none ml-2 space-y-3 mt-4">
+                    <li>
+                        <details>
+                            <summary class="cursor-pointer text-white">📌 Quais são os requisitos <span
+                                    class="tooltip">não-funcionais<span class="tooltip-text">Requisitos que tratam de
+                                        atributos como desempenho, segurança e escalabilidade.</span></span> críticos?
+                            </summary>
+                            <div class="ml-4 text-slate-400">Exemplos: desempenho, escalabilidade, segurança, tolerância
+                                a falhas, tempo de resposta, auditabilidade.</div>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class="cursor-pointer text-white">📌 O sistema precisa escalar horizontalmente?
+                            </summary>
+                            <div class="ml-4 text-slate-400">Adicionar mais instâncias do sistema para lidar com aumento
+                                de carga, ao invés de apenas reforçar uma única máquina.</div>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class="cursor-pointer text-white">📌 Quais módulos podem ser plugáveis ou isolados?
+                            </summary>
+                            <div class="ml-4 text-slate-400">Exemplos: módulo de notificações (email/SMS), sistema de
+                                autenticação (OAuth, AD), motores de cálculo desacoplados.</div>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+        <!-- Tópico 4 -->
+        <details class="mb-4 group bg-slate-800 p-4 rounded-xl hover:shadow-lg">
+            <summary class="cursor-pointer font-semibold text-lg text-orange-300 group-open:underline">🧩 Rito: Solution
+                Review</summary>
+            <div class="mt-3 text-slate-200">
+                Um momento estruturado onde diferentes perfis (arquitetos, segurança, produto) revisam uma solução.<br>
+                <strong>Dica:</strong> Traga pontos abertos, decisões já tomadas e proponha perguntas ao invés de só
+                mostrar respostas.
+            </div>
+        </details>
+
+        <!-- Tópico 5 -->
+        <details class="mb-4 group bg-slate-800 p-4 rounded-xl hover:shadow-lg">
+            <summary class="cursor-pointer font-semibold text-lg text-orange-300 group-open:underline">🚫 Erros comuns
+                no início de projetos</summary>
+            <div class="mt-3 text-slate-200">
+                <div class="space-y-2">
+                    <details>
+                        <summary class="cursor-pointer text-white">▶ Ignorar observabilidade e métricas</summary>
+                        <div class="mt-1 ml-4 text-slate-400">
+                            Sem métricas e logs, falhas passam despercebidas. Ferramentas como Prometheus, Grafana e ELK
+                            ajudam a entender o sistema em tempo real.
+                        </div>
+                    </details>
+                    <details>
+                        <summary class="cursor-pointer text-white">▶ Acoplar lógica de negócio ao banco de dados
+                        </summary>
+                        <div class="mt-1 ml-4 text-slate-400">
+                            Codificar lógica em procedures dificulta testes e mudanças. Prefira lógica de negócio
+                            desacoplada em serviços bem definidos.
+                        </div>
+                    </details>
+                    <details>
+                        <summary class="cursor-pointer text-white">▶ Escolher arquitetura baseada em hype e não no
+                            problema</summary>
+                        <div class="mt-1 ml-4 text-slate-400">
+                            Escolher microserviços por modismo pode ser um tiro no pé. Avalie escopo, equipe, esforço de
+                            operação e real necessidade de distribuição.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </details>
+
+        <!-- Encerramento -->
+        <div class="mt-10 p-6 rounded-xl bg-slate-800">
+            <h2 class="text-xl font-semibold text-orange-400 mb-2">✅ Conclusão</h2>
+            <p class="text-slate-300">
+                Arquitetura não é uma etapa isolada — é uma prática contínua. Evolua com dados reais, mantenha diálogos
+                ativos com o time e priorize decisões que reduzem o custo da mudança.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
