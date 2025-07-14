@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Inteligente de Python</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🎯 Quiz Inteligente</h1>
+            <p class="subtitle">Teste seus conhecimentos em Python com IA</p>
+        </header>
+
+        <main class="main">
+            <div class="quiz-card">
+                <div id="initial-state" class="state active">
+                    <div class="welcome">
+                        <h2>Pronto para o desafio?</h2>
+                        <p>Clique no botão abaixo para gerar uma pergunta sobre Python</p>
+                        <button id="btn-gerar" class="btn btn-primary">
+                            Gerar Pergunta
+                        </button>
+                    </div>
+                </div>
+
+                <div id="loading-state" class="state">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Gerando pergunta...</p>
+                    </div>
+                </div>
+
+                <div id="question-state" class="state">
+                    <div class="question">
+                        <h3>Pergunta:</h3>
+                        <p id="pergunta-text" class="question-text"></p>
+                        <div class="buttons">
+                            <button id="btn-verdadeiro" class="btn btn-success">
+                                ✅ Verdadeiro
+                            </button>
+                            <button id="btn-falso" class="btn btn-error">
+                                ❌ Falso
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="result-state" class="state">
+                    <div class="result">
+                        <div id="resultado" class="result-feedback"></div>
+                        <p id="explicacao" class="explanation"></p>
+                        <button id="btn-nova-pergunta" class="btn btn-primary">
+                            Nova Pergunta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let perguntaAtual = '';
+
+        // Estados da aplicação
+        const states = {
+            initial: document.getElementById('initial-state'),
+            loading: document.getElementById('loading-state'),
+            question: document.getElementById('question-state'),
+            result: document.getElementById('result-state')
+        };
+
+        // Elementos
+        const btnGerar = document.getElementById('btn-gerar');
+        const btnVerdadeiro = document.getElementById('btn-verdadeiro');
+        const btnFalso = document.getElementById('btn-falso');
+        const btnNovaPergunta = document.getElementById('btn-nova-pergunta');
+        const perguntaText = document.getElementById('pergunta-text');
+        const resultado = document.getElementById('resultado');
+        const explicacao = document.getElementById('explicacao');
+
+        // Funções de estado
+        function showState(stateName) {
+            Object.values(states).forEach(state => state.classList.remove('active'));
+            states[stateName].classList.add('active');
+        }
+
+        // Gerar pergunta
+        async function gerarPergunta() {
+            showState('loading');
+            
+            try {
+                const response = await fetch('/gerar-pergunta', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                perguntaAtual = data.pergunta;
+                perguntaText.textContent = perguntaAtual;
+                showState('question');
+            } catch (error) {
+                alert('Erro ao gerar pergunta. Tente novamente.');
+                showState('initial');
+            }
+        }
+
+        // Verificar resposta
+        async function verificarResposta(resposta) {
+            showState('loading');
+            
+            try {
+                const response = await fetch('/verificar-resposta', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        pergunta: perguntaAtual,
+                        resposta: resposta
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.correto) {
+                    resultado.innerHTML = '<div class="success">✅ Resposta Correta!</div>';
+                } else {
+                    resultado.innerHTML = '<div class="error">❌ Resposta Incorreta!</div>';
+                }
+                
+                explicacao.textContent = data.explicacao;
+                showState('result');
+            } catch (error) {
+                alert('Erro ao verificar resposta. Tente novamente.');
+                showState('question');
+            }
+        }
+
+        // Event listeners
+        btnGerar.addEventListener('click', gerarPergunta);
+        btnVerdadeiro.addEventListener('click', () => verificarResposta('Verdadeiro'));
+        btnFalso.addEventListener('click', () => verificarResposta('Falso'));
+        btnNovaPergunta.addEventListener('click', gerarPergunta);
+    </script>
+</body>
+</html>
